@@ -1,4 +1,3 @@
-
 const imageInput = document.getElementById("image-input");
 const colorPicker = document.getElementById("color-picker");
 const imageCanvas = document.getElementById("image-canvas");
@@ -16,21 +15,16 @@ reader.addEventListener("load", () => {
   });
 });
 
-colorPicker.addEventListener("input", () => {
-  updateCanvas();
-});
+colorPicker.addEventListener("input", () => updateCanvas);
 
 function updateCanvas() {
   const imageData = context.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
   const data = imageData.data;
   for (let i = 0; i < data.length; i += 4) {
-    const red = data[i];
-    const green = data[i + 1];
-    const blue = data[i + 2];
     const sr = parseInt(colorPicker.value.substring(1, 3), 16);
     const sg = parseInt(colorPicker.value.substring(3, 5), 16);
     const sb = parseInt(colorPicker.value.substring(5, 7), 16);
-    data[i + 3] = (red === sr && green === sg && blue === sb) ? 255 : 64;
+    data[i + 3] = (data[i] === sr && data[i + 1] === sg && data[i + 2] === sb) ? 255 : 64;
   }
   imageData.data = data;
   context.fillStyle = "white";
@@ -44,7 +38,6 @@ imageInput.addEventListener("change", () => {
 });
 
 imageCanvas.addEventListener("click", (event) => {
-  console.log(event.offsetX, event.offsetY)
   const pixelData = context.getImageData(event.offsetX, event.offsetY, 1, 1);
   const rHex = pixelData.data[0].toString(16).padStart(2, "0");
   const gHex = pixelData.data[1].toString(16).padStart(2, "0");
