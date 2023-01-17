@@ -1,3 +1,5 @@
+
+window.addEventListener("load", function () {
 const imageInput = document.getElementById("image-input");
 const colorPicker = document.getElementById("color-picker");
 const imageCanvas = document.getElementById("image-canvas");
@@ -44,4 +46,5 @@ imageCanvas.addEventListener("click", (event) => {
   const bHex = pixelData.data[2].toString(16).padStart(2, "0");
   colorPicker.value = `#${rHex}${gHex}${bHex}`;
   updateCanvas();
+});
 });
